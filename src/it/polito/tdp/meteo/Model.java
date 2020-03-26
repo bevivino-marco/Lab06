@@ -62,18 +62,25 @@ public class Model {
 	public String trovaSequenza(int mese) {
 		List <SimpleCity> best =new LinkedList<SimpleCity> ();
 		List <SimpleCity> parziale = new LinkedList<SimpleCity> () ;
-		cerca (parziale, 0 , best, mese) ;
+		cerca (parziale,1 , best, mese) ;
         
 		return best.toString();
 	}
 	
 
 	public Double punteggioSoluzione(List<SimpleCity> soluzioneCandidata) {
-
+        
 		double score = 0.0;
+		String citta= soluzioneCandidata.get(0).getNome();
 		for (SimpleCity sc : soluzioneCandidata) {
 			score+=sc.getCosto();
+			if (sc.getNome()!=citta) {
+				score+= 100.0;
+			}
+			citta=sc.getNome();
 		}
+		
+		
 		return score;
 	}
 
@@ -100,20 +107,26 @@ public class Model {
 			   best.addAll(parziale);
 			   return;
 		   }else if(controllaParziale(parziale) && punteggioSoluzione(parziale)< punteggioSoluzione(best)) {
-			   System.out.println(parziale);
-			   best= parziale;
+			   System.out.println("il parziale e' "+parziale+punteggioSoluzione(parziale)+ "il best e : "+best+punteggioSoluzione(best));
+			   best.clear();
+			   best.addAll(parziale);
 			   return;
 		   }else return;
 	   }
 	   
-	   
+	   //[Genova, Genova, Torino, Torino, Milano]
 	   
 	   
 	   for (Citta citta : c) {
-		       if (contatore(parziale, citta.getNome())<3){
-			   int c1 =citta.getUD(mese,livello);
+		       if (livello<=13 && contatore(parziale, citta.getNome())<3){
+		    	   int c1 =citta.getUD(mese,livello);
 			   int c2 =citta.getUD(mese,livello+1);
-			   int c3 =citta.getUD(mese,livello+2);
+			  int c3 =citta.getUD(mese,livello+2);
+			  //int c1 =dao.getCosto(citta.getNome(), mese, livello);
+			 //  int c2 =dao.getCosto(citta.getNome(), mese, livello);
+			   // int c3 =dao.getCosto(citta.getNome(), mese, livello);
+			   
+			   
 			   //int c2 =citta.getUD((2013-mese-livello+1));
 			   //int c3 = citta.getUD((2013-mese-livello+2));
 			   int c = c1+c2+c3;

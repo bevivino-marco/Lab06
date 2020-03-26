@@ -28,9 +28,9 @@ public class TestModel {
 		c.add(new SimpleCity ("torino", 55));
 		
 		m.controllaParziale(c);
-		 System.out.println(m.trovaSequenza(5));
-		 System.out.println(m.controllaParziale(c));
-		 System.out.println(m.punteggioSoluzione(c));
+		 System.out.println(m.trovaSequenza(8));
+		// System.out.println(m.controllaParziale(c));[Genova, Genova, Milano, Milano, Torino]
+		// System.out.println(m.punteggioSoluzione(c));
 //		System.out.println(m.trovaSequenza(4));
 		 
 	}
