@@ -62,13 +62,13 @@ public class Model {
 	public String trovaSequenza(int mese) {
 		List <SimpleCity> best =new LinkedList<SimpleCity> ();
 		List <SimpleCity> parziale = new LinkedList<SimpleCity> () ;
-		cerca (parziale, 1 , best, mese) ;
+		cerca (parziale, 0 , best, mese) ;
         
 		return best.toString();
 	}
 	
 
-	private Double punteggioSoluzione(List<SimpleCity> soluzioneCandidata) {
+	public Double punteggioSoluzione(List<SimpleCity> soluzioneCandidata) {
 
 		double score = 0.0;
 		for (SimpleCity sc : soluzioneCandidata) {
@@ -78,23 +78,15 @@ public class Model {
 	}
 
 	public boolean controllaParziale(List<SimpleCity> parziale) {
-		SimpleCity sc1 = parziale.get(0);
-		int cont =0;
-        for (SimpleCity sc : parziale) {
-        	if (cont==0) {
-        		
-        	}else if(sc1.equals(sc)) {
-        		cont++;
-        		if (cont==3)
-        			return false;
-        	}
-        	else {
-        		sc.setCosto(sc.getCosto()+100);
-        		cont =0;
-        	}
-        	
-        }
+		List<SimpleCity> ltemp = new LinkedList <SimpleCity>();
+		for (SimpleCity sc : parziale) {
+			if (!ltemp.contains(sc)) {
+				ltemp.add(sc);
+			}
+		}
+		if (ltemp.size()==c.size())
 		return true;
+		return false;
 	}
 	/*public List <Rilevamento> getRilevamentiPerMese(int mese, String localita){
 		List <Rilevamento> lista = new LinkedList <Rilevamento>(dao.getAllRilevamentiLocalitaMese(mese, localita));
@@ -102,9 +94,14 @@ public class Model {
 		
 	}*/
    public void cerca(List <SimpleCity> parziale, int livello, List <SimpleCity> best, int mese) {
-	   if (livello>16) {
-		   if(controllaParziale(parziale) && punteggioSoluzione(parziale)> punteggioSoluzione(best)) {
-			   best = parziale;
+	  
+	   if (livello==15) {
+		   if (best.size()==0) {
+			   best.addAll(parziale);
+			   return;
+		   }else if(controllaParziale(parziale) && punteggioSoluzione(parziale)< punteggioSoluzione(best)) {
+			   System.out.println(parziale);
+			   best= parziale;
 			   return;
 		   }else return;
 	   }
@@ -124,7 +121,7 @@ public class Model {
 			   parziale.add(sc);
 			   cerca(parziale, livello+3, best, mese);
 			   parziale.remove(sc);
-			   System.out.println(parziale);}
+			   }
 		   
 	   }
 	   

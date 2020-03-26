@@ -30,6 +30,7 @@ public class TestModel {
 		m.controllaParziale(c);
 		 System.out.println(m.trovaSequenza(5));
 		 System.out.println(m.controllaParziale(c));
+		 System.out.println(m.punteggioSoluzione(c));
 //		System.out.println(m.trovaSequenza(4));
 		 
 	}
