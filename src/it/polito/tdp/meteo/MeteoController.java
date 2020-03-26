@@ -1,6 +1,8 @@
 package it.polito.tdp.meteo;
 
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -18,7 +20,7 @@ public class MeteoController {
 	private URL location;
 
 	@FXML
-	private ChoiceBox<?> boxMese;
+	private ChoiceBox<Integer> boxMese;
 
 	@FXML
 	private Button btnCalcola;
@@ -29,14 +31,16 @@ public class MeteoController {
 	@FXML
 	private TextArea txtResult;
 
+	private Model model;
+
 	@FXML
 	void doCalcolaSequenza(ActionEvent event) {
-
+          txtResult.appendText(model.trovaSequenza(boxMese.getValue()));
 	}
 
 	@FXML
 	void doCalcolaUmidita(ActionEvent event) {
-
+           txtResult.appendText(model.getUmiditaMedia(boxMese.getValue()));
 	}
 
 	@FXML
@@ -45,6 +49,18 @@ public class MeteoController {
 		assert btnCalcola != null : "fx:id=\"btnCalcola\" was not injected: check your FXML file 'Meteo.fxml'.";
 		assert btnUmidita != null : "fx:id=\"btnUmidita\" was not injected: check your FXML file 'Meteo.fxml'.";
 		assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Meteo.fxml'.";
+	}
+
+	public void setModel(Model model) {
+		this.model=model;
+		setCBox();
+	}
+	public void setCBox() {
+		List <Integer> lista = new LinkedList<Integer>();
+		for (int i=1; i<=12;i++) {
+			lista.add(i);
+		}
+		boxMese.getItems().addAll(lista);
 	}
 
 }

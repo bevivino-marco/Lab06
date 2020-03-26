@@ -47,6 +47,7 @@ public class Rilevamento {
 	@Override
 	public String toString() {
 		return String.valueOf(umidita);
+		//return localita+ " "+ data+ " "+ umidita+ "\n";
 	}
 
 }

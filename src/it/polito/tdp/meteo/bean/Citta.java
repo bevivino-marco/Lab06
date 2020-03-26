@@ -1,5 +1,6 @@
 package it.polito.tdp.meteo.bean;
 
+import java.util.Date;
 import java.util.List;
 
 public class Citta {
@@ -43,6 +44,15 @@ public class Citta {
 	
 	public void increaseCounter() {
 		this.counter += 1;
+	}
+	@SuppressWarnings("deprecation")
+	public int getUD(int mese, int giorno) {
+		for (Rilevamento r : rilevamenti) {
+			if((r.getData().getMonth()==mese && r.getData().getDay()==giorno)){
+				return r.getUmidita();
+			}
+		}
+		return 0;
 	}
 
 	@Override
